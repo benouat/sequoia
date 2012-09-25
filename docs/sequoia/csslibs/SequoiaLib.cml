@@ -1,0 +1,232 @@
+{CSSLibrary {
+  $classpath: 'sequoia.csslibs.SequoiaLib',
+  $hasScript: true
+}}
+
+
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
+// WARN: Should be always call as the last rule
+{macro clearfix(rule)}
+    ${rule} {
+      *zoom: 1;
+    }
+    ${rule}:before, ${rule}:after {
+      display: table;
+      content: "";
+      // Fixes Opera/contenteditable bug:
+      // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+      line-height: 0;
+    }
+    ${rule}:after {
+      clear: both;
+    }
+{/macro}
+
+
+{macro centerBlock()}
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+{/macro}
+
+// Sizing shortcuts
+// -------------------------
+{macro size(width, height)}
+  width: ${width};
+  height: ${height};
+{/macro}
+
+{macro square(size)}
+  {call size(size, size)/}
+{/macro}
+
+// Text overflow
+// -------------------------
+// Requires inline-block or block for proper styling
+{macro textOverflow()}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+{/macro}
+
+// FORMS
+// --------------------------------------------------
+
+// Block level inputs
+{macro inputBlockLevel()}
+  display: block;
+  width: 100%;
+  min-height: 30px;        // Make inputs at least the height of their button counterpart
+  {call boxSizing('border-box')/} // Makes inputs behave like true block-level elements
+{/macro}
+
+
+// CSS3 PROPERTIES
+// --------------------------------------------------
+
+// Border Radius
+{macro borderRadius(radius)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-border-radius: ${radius};
+  {else/}
+          border-radius: ${radius};
+  {/if}
+{/macro}
+
+
+// Drop shadows
+{macro boxShadow()}
+  {var props = boxShadowProps.apply(this, arguments)/}
+  {if aria.core.Browser.isWebkit}
+  -webkit-box-shadow: ${props};
+  {else/}
+          box-shadow: ${props};
+  {/if}
+{/macro}
+
+// Transitions
+{macro transition()}
+  {var transition = transitionProps.apply(this, arguments)/}
+  {if aria.core.Browser.isWebkit}
+  -webkit-transition: ${transition};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-transition: ${transition};
+  {elseif aria.core.Browser.isOpera /}
+       -o-transition: ${transition};
+  {else/}
+          transition: ${transition};
+  {/if}
+{/macro}
+
+{macro transitionDelay(delay)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-transition-delay: ${delay};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-transition-delay: ${delay};
+  {elseif aria.core.Browser.isOpera /}
+       -o-transition-delay: ${delay};
+  {else/}
+          transition-delay: ${delay};
+  {/if}
+{/macro}
+
+// Background clipping
+// Heads up: FF 3.6 and under need "padding" instead of "padding-box"
+{macro backgroundClip(clip)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-background-clip: ${clip};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-background-clip: ${clip};
+  {else/}
+          background-clip: ${clip};
+  {/if}
+{/macro}
+
+// Background sizing
+{macro backgroundSize(size)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-background-size: ${size};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-background-size: ${size};
+  {elseif aria.core.Browser.isOpera /}
+       -o-background-size: ${size};
+  {else/}
+          background-size: ${size};
+  {/if}
+{/macro}
+
+
+// Box sizing
+{macro boxSizing(boxmodel)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-box-sizing: ${boxmodel};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-box-sizing: ${boxmodel};
+  {else/}
+          box-sizing: ${boxmodel};
+  {/if}
+{/macro}
+
+// User select
+// For selecting text on the page
+{macro userSelect(select)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-user-select: ${select};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-user-select: ${select};
+  {elseif aria.core.Browser.isIE9 /}
+      -ms-user-select: ${select};
+  {elseif aria.core.Browser.isOpera /}
+       -o-user-select: ${select};
+  {else/}
+          user-select: ${select};
+  {/if}
+{/macro}
+
+// Resize anything
+{macro resizable(direction)}
+  resize: ${direction}; // Options: horizontal, vertical, both
+  overflow: auto; // Safari fix
+{/macro}
+
+
+// CSS3 Content Columns
+{macro contentColumns(columnCount, columnGap)}
+  {if aria.core.Browser.isWebkit}
+  -webkit-column-count: ${columnCount};
+  -webkit-column-gap: ${columnGap};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-column-count: ${columnCount};
+     -moz-column-gap: ${columnGap};
+  {else/}
+          column-count: ${columnCount};
+          column-gap: ${columnGap};
+  {/if}
+{/macro}
+
+// Optional hyphenation
+{macro hyphens(mode)}
+  {var mode = mode || "auto"/}
+  word-wrap: break-word;
+  {if aria.core.Browser.isWebkit}
+  -webkit-hyphens: ${mode};
+  {elseif aria.core.Browser.isFirefox /}
+     -moz-hyphens: ${mode};
+  {elseif aria.core.Browser.isIE9 /}
+      -ms-hyphens: ${mode};
+  {elseif aria.core.Browser.isOpera /}
+       -o-hyphens: ${mode};
+  {else/}
+          hyphens: ${mode};
+  {/if}
+{/macro}
+
+// Opacity
+{macro opacity(opacity)}
+  {if aria.core.Browser.isIE && !aria.core.Browser.isIE9}
+    filter: alpha(opacity=${opacity});
+  {else/}
+    opacity: ${opacity / 100};
+  {/if}
+{/macro}
+
+
+{macro navDivider(top, bottom)}
+  {set top = top || color("e5e5e5")/}
+  {set bottom = bottom || color("fff")/}
+  // IE7 needs a set width since we gave a height. Restricting just
+  // to IE7 to keep the 1px left/right space in other browsers.
+  // It is unclear where IE is getting the extra space that we need
+  // to negative-margin away, but so it goes.
+  *width: 100%;
+  height: 1px;
+  margin: 8px 1px; // ${op.minus(op.divide(baseLineHeight,2) , 1)} 1px
+  *margin: -5px 0 5px;
+  overflow: hidden;
+  background-color: ${top};
+  border-bottom: 1px solid ${bottom};
+{/macro}
+
+{/CSSLibrary}

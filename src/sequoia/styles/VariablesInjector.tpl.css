@@ -1,0 +1,10 @@
+{CSSTemplate {
+  $classpath: 'sequoia.styles.VariablesInjector',
+  $hasScript: true
+}}
+
+  {macro main()}
+
+  {/macro}
+
+{/CSSTemplate}

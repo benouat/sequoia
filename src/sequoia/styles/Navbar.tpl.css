@@ -1,0 +1,10 @@
+{CSSTemplate {
+  $classpath: 'sequoia.styles.Navbar',
+  $extends: 'sequoia.styles.VariablesInjector',
+  $csslibs: {
+    's': 'sequoia.csslibs.SequoiaLib'
+  }
+}}
+{macro main()}
+{/macro}
+{/CSSTemplate}

@@ -1,0 +1,121 @@
+{CSSTemplate {
+  $classpath: 'sequoia.styles.Forms',
+  $extends: 'sequoia.styles.VariablesInjector',
+  $csslibs: {
+    's': 'sequoia.csslibs.SequoiaLib'
+  }
+}}
+
+  {macro main()}
+    {call globalDefinitions()/}
+
+    {call label()/}
+    {call input()/}
+    {call textarea()/}
+    {call select()/}
+
+  {/macro}
+
+  {macro globalDefinitions()}
+    input,
+    button,
+    select,
+    textarea {
+      font-family: ${baseFontFamily};
+    }
+
+    // Shared size and type resets
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+      display: inline-block;
+      height: ${baseLineHeight};
+      padding: 4px 6px;
+      margin-bottom: 9px;
+      font-size: ${baseFontSize};
+      line-height: ${baseLineHeight};
+      color: ${gray};
+      {call s.borderRadius(inputBorderRadius)/}
+
+      background-color: ${inputBackground};
+      border: 1px solid ${inputBorder};
+      {call s.boxShadow("inset 0 1px 1px rgba(0,0,0,.075)") /}
+      {call s.transition("border linear .2s", "box-shadow linear .2s") /}
+    }
+
+    select:focus,
+    textarea:focus,
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="datetime"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="date"]:focus,
+    input[type="month"]:focus,
+    input[type="time"]:focus,
+    input[type="week"]:focus,
+    input[type="number"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="search"]:focus,
+    input[type="tel"]:focus,
+    input[type="color"]:focus,
+    .uneditable-input:focus {
+      /*border-color: rgba(82,168,236,.8);*/
+      {var greenishColor = s.color("92C929")/}
+      border-color: ${s.transparentize(greenishColor,80)};
+      outline: 0;
+      {var outline = "0 0 4px " + s.transparentize(greenishColor,60)/}
+      {call s.boxShadow("inset 0 1px 1px rgba(0,0,0,.075)", outline) /}
+    }
+
+    {if aria.core.Browser.isFirefox}
+    input:-moz-placeholder, textarea:-moz-placeholder {
+      color: #999999;
+    }
+    {/if}
+
+    {if aria.core.Browser.isWebkit}
+    ::-webkit-placeholder {
+      color: #999999;
+    }
+    {/if}
+
+
+
+  {/macro}
+
+  {macro input()}
+
+  {/macro}
+
+  {macro select()}
+  {/macro}
+
+  {macro textarea()}
+    textarea {
+      height: auto;
+    }
+  {/macro}
+
+  {macro label()}
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  {/macro}
+
+{/CSSTemplate}

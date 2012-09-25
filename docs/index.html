@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sequoia Test Page</title>
+  <script type="text/javascript" src="/aria/aria-templates-1.2-5.js"></script>
+  <script type="text/javascript" src="/aria/css/atskin-1.2-5.js"></script>
+</head>
+<body>
+  <div id="page"></div>
+  <script type="text/javascript">
+
+    sequoia = {
+      env: {
+        //theme: "Oregon"
+      }
+    };
+
+    aria.core.AppEnvironment.setEnvironment({
+      defaultWidgetLibs: {
+        html: "aria.html.HtmlLibrary",
+        sequoia: "sequoia.widgets.SequoiaLib"
+      }
+    });
+
+    Aria.loadTemplate({
+      classpath: 'Test',
+      div: 'page',
+      data: {
+        input: "",
+        textarea: "",
+        increment: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+      }
+    });
+
+    function start() {
+      var fColor = sequoia.core.Functions;
+
+      var black = new sequoia.core.Color([0, 0, 0]);
+      var white = new sequoia.core.Color([255, 255, 255]);
+      var red = new sequoia.core.Color([255, 0, 0]);
+
+      display_all_views(black);
+      display_all_views(new sequoia.core.Color([0, 0, 255]));
+      display_all_views(new sequoia.core.Color([0, 255, 255]));
+      display_all_views(new sequoia.core.Color([255, 255, 0]));
+      display_all_views(red);
+      display_all_views(new sequoia.core.Color([255, 0, 255]));
+      display_all_views(new sequoia.core.Color([255, 255, 255]));
+
+      display_all_views(fColor.lighten(red, 10));
+      display_all_views(fColor.lighten(red, 20));
+      display_all_views(fColor.lighten(red, 30));
+      display_all_views(fColor.lighten(red, 40));
+
+      display_all_views(fColor.darken(white, 100));
+    }
+
+
+    function display_all_views(color) {
+      console.log(color.__rgba_str(), ", hex: " + color.__hex_str(), ", smallest: " + color.__smallest_str())
+    }
+  </script>
+</body>
+</html>
